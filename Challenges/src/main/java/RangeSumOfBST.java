@@ -1,17 +1,22 @@
 
 public class RangeSumOfBST {
 
-    int SUM = 0;
-
     public int rangeSumBST(TreeNode root, int low, int high) {
-        if(root != null){
-            if(root.val >= low && root.val <= high){
-                SUM = SUM + root.val;
-            }
-            rangeSumBST(root.left, low, high);
-            rangeSumBST(root.right, low, high);
+        if(root == null){
+            return 0;
         }
-        return SUM;
+        int sum = 0;
+        if(root.val >= low && root.val <= high){
+            sum = sum + root.val;
+        }
+        if(root.val < high && root.right != null){
+            sum = sum + rangeSumBST(root.right, low, high);
+        }
+        if(root.val > low && root.left != null){
+            sum = sum + rangeSumBST(root.left, low, high);
+        }
+
+        return sum;
     }
 
     public static class TreeNode {
